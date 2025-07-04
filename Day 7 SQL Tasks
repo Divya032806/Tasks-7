@@ -1,0 +1,51 @@
+Am using already created tables
+
+create table employees (
+    emp_id int primary key,
+    emp_name varchar(100),
+    emp_dept varchar(50),
+    emp_salary int,
+    doj date
+);
+
+
+create table department (
+    dept_id int primary key,
+    dept_name varchar(50),
+    manager_name varchar(100)
+);
+
+insert into employees values
+(1, 'Anita Sharma', 'HR', 50000, '2021-03-15'),
+(2, 'Ravi Kumar', 'IT', 75000, '2020-07-01'),
+(3, 'Meena Verma', 'Finance', 60000, '2019-11-23');
+
+insert into department values
+(1, 'HR', 'Rajiv Nair'),
+(2, 'IT', 'Sneha Rao'),
+(3, 'Finance', 'Amit Das');
+
+
+create view emp_dept_summary as
+select 
+    e.emp_id,
+    e.emp_name,
+    e.emp_dept,
+    e.emp_salary,
+    d.manager_name
+from 
+    employees e
+join 
+    department d 
+on 
+    e.emp_dept = d.dept_name;
+
+select * from emp_dept_summary;
+
+
+create view high_salary_employees as
+select emp_id, emp_name, emp_salary
+from employees
+where emp_salary > 60000;
+
+select * from high_salary_employees;
