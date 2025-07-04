@@ -1,0 +1,30 @@
+create view salary_summary as
+select 
+    d.dept_name,
+    d.manager_name,
+    count(e.emp_id) as total_employees,
+    avg(e.emp_salary) as average_salary
+from 
+    department d
+left join 
+    employees e on e.emp_dept = d.dept_name
+group by 
+    d.dept_name, d.manager_name
+order by 
+    average_salary desc;
+
+
+create view high_paid_emps as
+select 
+    emp_id,
+    upper(emp_name) as employee_name,
+    emp_dept,
+    emp_salary,
+    date_format(doj, '%M %Y') as joining_month
+from 
+    employees
+where 
+    emp_salary > 60000 and doj >= '2020-01-01'
+order by 
+    emp_salary desc;
+
